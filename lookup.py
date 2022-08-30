@@ -1,7 +1,7 @@
+from dataset import produto_database
 from db.database import Database
 from helper.WriteAJson import writeAJson
 from dataset.pessoa_dataset import dataset as pessoa_dataset
-from dataset.carro_dataset import dataset as carro_dataset
 
 pessoas = Database(
     database="database",
@@ -10,14 +10,15 @@ pessoas = Database(
 )
 pessoas.resetDatabase()
 
-carros = Database(
+produtos = Database(
     database="database",
-    collection="carros",
-    dataset=carro_dataset
+    collection="produtos",
+    dataset=produto_database
 )
-carros.resetDatabase()
+produtos.resetDatabase()
 
-result1 = carros.collection.aggregate([
+
+compra1 = produtos.collection.aggregate([
     {"$lookup":
         {
             "from": "pessoas",  # outra colecao
@@ -25,8 +26,11 @@ result1 = carros.collection.aggregate([
             "foreignField": "_id",  # id da outra colecao
             "as": "dono"  # nome da saida
         }
+
      }
 ])
 
-writeAJson(result1, "result1")
+
+
+writeAJson(compra1, "compra1")
 
