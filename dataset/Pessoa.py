@@ -1,8 +1,7 @@
 from db.database import Database
-from pprint import pprint as pp
 from bson.objectid import ObjectId
 
-class PessoaDAO:
+class Pessoa:
     def __int__(self):
         self.db = Database(database="cliente", collection="Pessoa")
         self.collection = self.db.collection

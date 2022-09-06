@@ -4,7 +4,6 @@ from helper.WriteAJson import writeAJson
 
 db = Database(database="database", collection="livros", dataset=database)
 
-
 lvrs = db.create(1, "Como fazer amigos e influenciar pessoas ", "Dale Carnegie", 1936, 39.9)
 lvrs = db.create(2, "A revolta de Atlas", "Ayn Rand", 1957, 71.91)
 lvrs = db.create(3, "O caminho da servidão", "F.A Hayek", 1944, 46.95)
