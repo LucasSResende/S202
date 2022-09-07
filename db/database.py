@@ -1,9 +1,9 @@
 import pymongo
-
+from dataset.livros import dataset
 
 class Database:
     def __init__(self, database, collection, dataset=None):
-        connectionString = "mongodb+srv://admin:admin@cluster0.48cet.mongodb.net/myFirstDatabase?retryWrites=true&w=majority"
+        connectionString = "localhost:27017"
         self.clusterConnection = pymongo.MongoClient(
             connectionString,
             # CASO OCORRA O ERRO [SSL_INVALID_CERTIFICATE]
@@ -14,24 +14,25 @@ class Database:
         if dataset:
             self.dataset = dataset
 
+
     def resetDatabase(self):
         self.db.drop_collection(self.collection)
         self.collection.insert_many(self.dataset)
 
-    def create(self, id, titulo,autor,ano,preco):
-        return self.collection.insert_one({"id": id, "titulo": titulo,"autor":autor,"ano":ano,"preco":preco})
+    def createbook(self, id, titulo,autor,ano,preco):
+        return self.collection.insert_one({"_id": id, "titulo": titulo,"autor":autor,"ano":ano,"preco":preco})
 
-    def read(self):
+    def readbook(self):
         return self.collection.find({})
 
-    def update(self, id, preco):
+    def updateprice(self, id, preco):
         return self.collection.update_one(
-            {"id": id},
+            {"_id": id},
             {
                 "$set":{"preco":preco},
                 "$currentDate": {"lastModified": True}
             }
         )
 
-    def delete(self, id):
-        return self.collection.delete_one({"id": id})
+    def deletebook(self, id):
+        return self.collection.delete_one({"_id": id})
