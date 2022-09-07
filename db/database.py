@@ -24,7 +24,7 @@ class Database:
     def read(self):
         return self.collection.find({})
 
-    def update(self,  id,preco):
+    def update(self, id, preco):
         return self.collection.update_one(
             {"id": id},
             {
